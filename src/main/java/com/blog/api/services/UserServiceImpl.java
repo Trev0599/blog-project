@@ -1,8 +1,10 @@
 package com.blog.api.services;
 
 import com.blog.api.entities.User;
+import com.blog.api.payloads.ResourceNotFoundExceptiuon;
 import com.blog.api.payloads.UserDto;
 import com.blog.api.repo.UserRepo;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepo userRepo;
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
     public UserDto createUser(UserDto userDto) {
@@ -38,7 +42,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getUserById(Integer userId) {
-        User user = this.userRepo.findById(userId).orElseThrow();
+        User user = this.userRepo.findById(userId).orElseThrow(()-> new ResourceNotFoundExceptiuon("User","id",userId));
         return this.userToDto(user);
 
     }
@@ -59,21 +63,21 @@ public class UserServiceImpl implements UserService {
 
 
     public User dtoToUser(UserDto userDto){
-        User user = new User();
-        user.setId((Integer) userDto.getId());
-        user.setName(userDto.getName());
-        user.setAbout(userDto.getAbout());
-        user.setEmail(userDto.getEmail());
-        user.setPassword(userDto.getPassword());
+        User user =this.modelMapper.map(userDto,User.class);
+//        user.setId((Integer) userDto.getId());
+//        user.setName(userDto.getName());
+//        user.setAbout(userDto.getAbout());
+//        user.setEmail(userDto.getEmail());
+//        user.setPassword(userDto.getPassword());
         return user;
     }
     public UserDto userToDto(User user){
-        UserDto userDto = new UserDto();
-        userDto.setId((Integer) user.getId());
-        userDto.setName(user.getName());
-        userDto.setAbout(user.getAbout());
-        userDto.setEmail(user.getEmail());
-        userDto.setPassword(user.getPassword());
+        UserDto userDto = this.modelMapper.map(user,UserDto.class);
+//        userDto.setId((Integer) user.getId());
+//        userDto.setName(user.getName());
+//        userDto.setAbout(user.getAbout());
+//        userDto.setEmail(user.getEmail());
+//        userDto.setPassword(user.getPassword());
         return userDto;
     }
 }
