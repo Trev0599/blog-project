@@ -35,7 +35,7 @@ public class UserControllers {
        return new ResponseEntity<>(updatedUser,HttpStatus.ACCEPTED);
     }
 
-    @DeleteMapping("/{userId")
+    @DeleteMapping("/{userId}")
     public ResponseEntity<UserDto> deletedUser(@PathVariable("userId") Integer userId){
         this.userService.deleteUser(userId);
 

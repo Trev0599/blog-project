@@ -29,10 +29,10 @@ public class UserServiceImpl implements UserService {
 
         User user  = this.userRepo.findById(userId).orElseThrow();
         user.setPassword(userDto.getPassword());
-        user.setName(user.getName());
-        user.setEmail(user.getEmail());
-        user.setAbout(user.getAbout());
-
+        user.setName(userDto.getName());
+        user.setEmail(userDto.getEmail());
+        user.setAbout(userDto.getAbout());
+        System.out.println(userDto.getEmail());
         return this.userToDto(user);
     }
 
