@@ -64,20 +64,11 @@ public class UserServiceImpl implements UserService {
 
     public User dtoToUser(UserDto userDto){
         User user =this.modelMapper.map(userDto,User.class);
-//        user.setId((Integer) userDto.getId());
-//        user.setName(userDto.getName());
-//        user.setAbout(userDto.getAbout());
-//        user.setEmail(userDto.getEmail());
-//        user.setPassword(userDto.getPassword());
         return user;
     }
     public UserDto userToDto(User user){
         UserDto userDto = this.modelMapper.map(user,UserDto.class);
-//        userDto.setId((Integer) user.getId());
-//        userDto.setName(user.getName());
-//        userDto.setAbout(user.getAbout());
-//        userDto.setEmail(user.getEmail());
-//        userDto.setPassword(user.getPassword());
+
         return userDto;
     }
 }
